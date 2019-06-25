@@ -159,7 +159,11 @@ class NewAnimalHelp extends React.Component{
 
     render(){
       if(this.state.NewHelpConfirm){
-        return <Redirect to="/newhelpconfirm"/>
+        return (
+        <Grid container justify="center" alignContent="center">
+        <Typography align="center" style={{padding:20}} variant="h5">You new request is sucessfull send, wait the confirmation in Arweave and Ethereum</Typography>
+        </Grid>
+        )
       }
         return(
             <Grid container justify="center" alignContent='center' direction="column">

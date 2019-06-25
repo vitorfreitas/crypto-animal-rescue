@@ -2,15 +2,26 @@ import React from 'react';
 import './App.css';
 import NewAnimalHelp from './NewAnimalHelp';
 import Home from './Home';
-import { Grid, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-import { Route, BrowserRouter, Switch, Link } from 'react-router-dom'
+import { Grid, AppBar, Toolbar, Typography, Button, Dialog, DialogContent } from '@material-ui/core';
+import { Route, HashRouter, Switch, Link } from 'react-router-dom'
 import ConfirmationNewHelp from './ConfirmationNewHelp';
 
-function App() {
-  
+class App extends React.Component {
+  state = {
+    modal:false
+  }
 
+  handleClose = () => {
+    this.setState({modal:false})
+  }
+
+  openModal = () => {
+    this.setState({modal:true})
+  }
+  
+  render(){
   return (
-    <BrowserRouter>
+    <HashRouter>
     <Switch>
     <Grid container>
     <AppBar position="static" color="default">
@@ -22,20 +33,23 @@ function App() {
           </Typography>
           </Link>
           </div>
-          <Link to="/newhelp">
-            <Button style={{fontSize:10}} variant="contained">New Animal Help</Button>
-            </Link>
+            <Button onClick={this.openModal} style={{fontSize:10}} variant="contained">New Animal Help</Button>
         </Toolbar>
       </AppBar>
     
-    <Route exact path="/" render={()=> <Home/>}/>    
-    <Route exact path="/newhelp" render={()=> <NewAnimalHelp/>}/>    
-    <Route exact path="/newhelpconfirm" render={()=> <ConfirmationNewHelp/>}/>    
+    <Home/>
+
+    <Dialog open={this.state.modal} onClose={this.handleClose}>
+    <DialogContent>
+      <NewAnimalHelp/>
+    </DialogContent>  
+    </Dialog>     
 
     </Grid>
     </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
+  }
 }
 
 export default App;

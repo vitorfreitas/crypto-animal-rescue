@@ -4,6 +4,9 @@
 We create this dApp for donate ether for animals cause, the dApp uses Arweave(http://arweave.net/) and Ethereum Smart Contracts.
 We integrate the storage of Arweave with the Ethereum Smart contracts. We upload the image and the text description for the donation on Arweave and store the URL with the value info in the Smart contracts
 
+You can test the dApp on rinkeby testnet:
+https://arweave.net/xFrjGwAH85MphtWyZiURyFH5ICKBfaV40BjPLQSv2dM
+
 
 
 In the project directory, you can run:

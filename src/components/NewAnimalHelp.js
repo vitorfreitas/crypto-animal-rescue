@@ -7,7 +7,9 @@ import {
   Button,
   TextField,
   Dialog,
-  DialogContent
+  DialogContent,
+  withStyles,
+  Input
 } from "@material-ui/core";
 import { getContract } from "../getWeb3Utils.js";
 
@@ -18,6 +20,19 @@ const arweave = Arweave.init({
   timeout: 20000, // Network request timeouts in milliseconds
   logging: false // Enable network request logging
 });
+
+const classes = {
+  gridPadder: {
+    padding: 10
+  },
+  marginBottom: {
+    marginBottom: 15
+  },
+  inputLabel: {
+    color: "rgba(0, 0, 0, 0.54)",
+    fontSize: "12px"
+  }
+};
 
 class NewAnimalHelp extends React.Component {
   state = {
@@ -86,9 +101,7 @@ class NewAnimalHelp extends React.Component {
       });
 
       let transaction = await arweave.createTransaction(
-        {
-          data
-        },
+        { data },
         this.state.walletData
       );
       await arweave.transactions.sign(transaction, this.state.walletData);
@@ -178,7 +191,7 @@ class NewAnimalHelp extends React.Component {
   };
 
   render() {
-    const { open, onClose } = this.props;
+    const { open, onClose, classes } = this.props;
 
     if (this.state.NewHelpConfirm) {
       return (
@@ -192,61 +205,71 @@ class NewAnimalHelp extends React.Component {
     }
 
     return (
-      <Dialog open={open} onClose={onClose}>
-        <DialogContent>
-          <Grid
-            container
-            justify="center"
-            alignContent="center"
-            direction="column"
-          >
-            <Grid style={{ padding: 10 }}>
-              <Typography>Upload you Arweave Wallet</Typography>
-              <input type="file" onChange={this.handleWalletUpload} />
-            </Grid>
-            <Grid style={{ padding: 10 }}>
-              <Typography>Upload the image of animals</Typography>
-              <input type="file" onChange={this.handleImageUpload} />
-            </Grid>
-            <Grid>
-              <Typography>Description</Typography>
+      <>
+        <Dialog open={open} onClose={onClose}>
+          <DialogContent>
+            <Grid
+              className={classes.gridPadder}
+              container
+              justify="center"
+              alignContent="center"
+              direction="column"
+            >
+              <Grid className={classes.marginBottom}>
+                <Typography className={classes.inputLabel}>
+                  Upload you Arweave Wallet
+                </Typography>
+                <Input type="file" onChange={this.handleWalletUpload} />
+              </Grid>
+
+              <Grid>
+                <Typography className={classes.inputLabel}>
+                  Upload the image of animals
+                </Typography>
+                <Input type="file" onChange={this.handleImageUpload} />
+              </Grid>
+
               <TextField
                 multiline
                 rows="4"
                 margin="normal"
-                variant="filled"
                 name="description"
-                placeholder="Donate description"
+                InputLabelProps={{ shrink: true }}
+                label="Donate description"
                 value={this.state.description}
                 onChange={e => this.change(e)}
               />
-            </Grid>
-            <Grid>
-              <Typography>Value Request(ETH)</Typography>
+
               <TextField
                 value={this.state.donateRequest}
                 type="number"
                 margin="normal"
-                variant="filled"
                 name="donateRequest"
+                label="Value requested (ETH)"
                 onChange={e => this.change(e)}
               />
+
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={this.sendDataArweave}
+              >
+                Deploy
+              </Button>
             </Grid>
-            <Dialog open={this.state.modal}>
-              <DialogContent>
-                <Typography align="center" style={{ padding: 10 }}>
-                  {this.state.tx ? "Loading" : "Check your Wallet"}
-                </Typography>
-              </DialogContent>
-            </Dialog>
-            <Button variant="contained" onClick={this.sendDataArweave}>
-              Deploy
-            </Button>
-          </Grid>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={this.state.modal}>
+          <DialogContent>
+            <Typography align="center" style={{ padding: 10 }}>
+              {this.state.tx ? "Loading" : "Check your Wallet"}
+            </Typography>
+          </DialogContent>
+        </Dialog>
+      </>
     );
   }
 }
 
-export default NewAnimalHelp;
+export default withStyles(classes)(NewAnimalHelp);

@@ -164,6 +164,7 @@ class DonateCard extends React.Component {
             {this.donateOrwith()}
           </Grid>
         </Paper>
+
         <Dialog open={this.state.modal}>
           <DialogContent>
             <Typography align="center" style={{ padding: 10 }}>

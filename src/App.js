@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import { CssBaseline, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
+import { HashRouter, Switch } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   heading: {
@@ -33,23 +34,27 @@ function App(props) {
   };
 
   return (
-    <div>
-      <CssBaseline />
+    <HashRouter>
+      <Switch>
+        <>
+          <CssBaseline />
 
-      <Home />
+          <Home />
 
-      <Fab
-        onClick={toggleModal}
-        variant="extended"
-        color="primary"
-        className={classes.newAnimalHelpFab}
-      >
-        <AddIcon className={classes.newAnimalHelpFabIcon} />
-        New Animal Help
-      </Fab>
+          <Fab
+            onClick={toggleModal}
+            variant="extended"
+            color="primary"
+            className={classes.newAnimalHelpFab}
+          >
+            <AddIcon className={classes.newAnimalHelpFabIcon} />
+            New Animal Help
+          </Fab>
 
-      <NewAnimalHelp open={modal} onClose={toggleModal} />
-    </div>
+          <NewAnimalHelp open={modal} onClose={toggleModal} />
+        </>
+      </Switch>
+    </HashRouter>
   );
 }
 

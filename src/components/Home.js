@@ -1,8 +1,32 @@
 import React from "react";
-import { Grid, Typography, Dialog, DialogContent } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Dialog,
+  DialogContent,
+  withStyles
+} from "@material-ui/core";
 import Web3 from "web3";
 import DonateCard from "./DonateCard";
-import { getWeb3, getContract, getArweave } from "../getWeb3Utils";
+import { getWeb3, getContract, getArweave } from "../utils/getWeb3Utils";
+
+const classes = {
+  heading: {
+    margin: "15px 0 10px",
+    fontSize: "2.5rem",
+    "@media (max-width: 396px)": {
+      fontSize: "1.8rem"
+    }
+  },
+  subheader: {
+    padding: "0 40px 15px",
+    fontSize: "1.5rem",
+    color: "rgba(0,0,0,.75)",
+    "@media (max-width: 768px)": {
+      fontSize: ".8rem"
+    }
+  }
+};
 
 class Home extends React.Component {
   state = {
@@ -126,13 +150,15 @@ class Home extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Grid container justify="center" alignContent="center" direction="column">
-        <Typography
-          align="center"
-          variant="h5"
-          style={{ padding: 20, margin: 20 }}
-        >
+        <Typography className={classes.heading} align="center">
+          Crypto Animal Rescue
+        </Typography>
+
+        <Typography align="center" className={classes.subheader}>
           The Crypto Animal Rescue is a dApp for donate for animals cause using
           Arweave storage with Ethereum Smart Contracts, we build this because
           we love animals and the crypto community always can help
@@ -184,4 +210,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withStyles(classes)(Home);

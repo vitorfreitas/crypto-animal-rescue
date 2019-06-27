@@ -1,16 +1,9 @@
 import React from "react";
 import NewAnimalHelp from "./components/NewAnimalHelp";
 import Home from "./components/Home";
-import {
-  Grid,
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  CssBaseline
-} from "@material-ui/core";
+import { CssBaseline, Fab } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
-import { HashRouter, Switch, Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   heading: {
@@ -20,6 +13,14 @@ const useStyles = makeStyles(() => ({
   appBarButton: {
     fontSize: 10,
     marginLeft: "auto"
+  },
+  newAnimalHelpFab: {
+    position: "fixed",
+    bottom: 20,
+    right: 20
+  },
+  newAnimalHelpFabIcon: {
+    marginRight: 10
   }
 }));
 
@@ -32,35 +33,23 @@ function App(props) {
   };
 
   return (
-    <HashRouter>
-      <Switch>
-        <Grid container>
-          <CssBaseline />
+    <div>
+      <CssBaseline />
 
-          <AppBar position="static" color="default">
-            <Toolbar>
-              <Link to="/" className={classes.heading}>
-                <Typography variant="h6" color="inherit">
-                  Crypto Animal Rescue
-                </Typography>
-              </Link>
+      <Home />
 
-              <Button
-                onClick={toggleModal}
-                className={classes.appBarButton}
-                variant="contained"
-              >
-                New Animal Help
-              </Button>
-            </Toolbar>
-          </AppBar>
+      <Fab
+        onClick={toggleModal}
+        variant="extended"
+        color="primary"
+        className={classes.newAnimalHelpFab}
+      >
+        <AddIcon className={classes.newAnimalHelpFabIcon} />
+        New Animal Help
+      </Fab>
 
-          <Home />
-
-          <NewAnimalHelp open={modal} onClose={toggleModal} />
-        </Grid>
-      </Switch>
-    </HashRouter>
+      <NewAnimalHelp open={modal} onClose={toggleModal} />
+    </div>
   );
 }
 

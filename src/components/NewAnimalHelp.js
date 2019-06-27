@@ -11,7 +11,7 @@ import {
   withStyles,
   Input
 } from "@material-ui/core";
-import { getContract } from "../getWeb3Utils.js";
+import { getContract } from "../utils/getWeb3Utils";
 
 const arweave = Arweave.init({
   host: "arweave.net", // Hostname or IP address for a Arweave node

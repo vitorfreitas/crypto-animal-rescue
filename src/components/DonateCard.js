@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import Web3 from "web3";
 import { Redirect } from "react-router-dom";
-import { getContract } from "../getWeb3Utils.js";
+import { getContract } from "../utils/getWeb3Utils";
 
 const classes = {
   donatePicture: {
